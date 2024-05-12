@@ -6,26 +6,38 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todoapp.databinding.ActivityAddToDoBinding
 import com.example.todoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private  lateinit var binding: ActivityMainBinding
+    private  lateinit var db : ToDoDatabaseHelper
+    private lateinit var  todoAdapter: ToDoDatabaseHelper
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
 
+        db = ToDoDatabaseHelper(this)
+        todoAdapter = ToDoDatabaseHelper(db.getAllToDo(),this)
+
+        binding.ToDoRecycleView.layoutManager = LinearLayoutManager(this)
+        binding.ToDoRecycleView.adapter = ToDoDatabaseHelper
+
         binding.addButton.setOnClickListener{
-            val intent = Intent(this, AddToDoActivity::class.java)
+            val intent = Intent(this,AddToDoActivity::class.java)
             startActivity(intent)
         }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
+
+    override fun onResume() {
+        super.onResume()
+        ToDoDatabaseHelper.refreshdata(db.getAllToDo())
+    }
+
+
 }

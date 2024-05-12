@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.todoapp.ToDoDatabaseHelper
 import com.example.todoapp.databinding.ActivityAddToDoBinding
 
-class AddToDoActivity : AppCompatActivity() {
+class ToDoAdapter : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddToDoBinding
     private lateinit var db:ToDoDatabaseHelper
@@ -27,7 +27,7 @@ class AddToDoActivity : AppCompatActivity() {
             val todo = ToDo(0,title,content)
             db.insertToDo(todo)
             finish()
-            Toast.makeText(this,"ToDo saved",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Note saved",Toast.LENGTH_SHORT).show()
         }
     }
 }
