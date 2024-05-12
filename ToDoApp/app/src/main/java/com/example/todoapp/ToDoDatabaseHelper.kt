@@ -4,13 +4,12 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.todoapp.ToDo
 
 class ToDoDatabaseHelper(context:Context): SQLiteOpenHelper(context,
     DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
-        private const val DATABASE_NAME ="todo.db"
+        private const val DATABASE_NAME ="todoapp.db"
         private const val DATABASE_VERSION =1
         private const val TABLE_NAME ="alltodo"
 

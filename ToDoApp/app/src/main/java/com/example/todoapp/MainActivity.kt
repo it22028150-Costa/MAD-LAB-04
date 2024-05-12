@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private  lateinit var binding: ActivityMainBinding
     private  lateinit var db : ToDoDatabaseHelper
-    private lateinit var  todoAdapter: ToDoDatabaseHelper
+    private lateinit var  todoAdapter: ToDoAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = ToDoDatabaseHelper(this)
-        todoAdapter = ToDoDatabaseHelper(db.getAllToDo(),this)
+        todoAdapter = ToDoAdapter(db.getAllToDo(),this)
 
         binding.ToDoRecycleView.layoutManager = LinearLayoutManager(this)
-        binding.ToDoRecycleView.adapter = ToDoDatabaseHelper
+        binding.ToDoRecycleView.adapter = todoAdapter
 
         binding.addButton.setOnClickListener{
             val intent = Intent(this,AddToDoActivity::class.java)
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        ToDoDatabaseHelper.refreshdata(db.getAllToDo())
+        todoAdapter.refreshdata(db.getAllToDo())
     }
 
 
